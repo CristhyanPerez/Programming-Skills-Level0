@@ -1,4 +1,4 @@
-menu = """
+menu_01 = """
 Welcome to the online Banking System:
 
 Notes:
@@ -13,9 +13,9 @@ Password: Cris 4
 
 ********** Log in **********
 """
-print(menu)
+print(menu_01)
 
-Access = False
+access = False
 balance = 2000
 
 for i in range (0,3):
@@ -27,7 +27,7 @@ for i in range (0,3):
     
     if password_input == password_system:
         print("Correct username and password\n")
-        Access = True
+        access = True
         break
     else:
         print("Warning: Incorrect password...")
@@ -35,13 +35,51 @@ for i in range (0,3):
             print("Reset username and pasword\n")
             print("********** Log in **********\n")
 
-if Access == True:
+menu_02 = """
+1. To Deposit
+2. To Withdraw
+3. To view balance
+4. Transfer money
+5. Exit
+"""
+answer = "y"
+
+def options(number_operation):
+    if number_operation == "1":
+        print("\nElegiste 1")
+    elif number_operation == "2":
+        print("\nElegiste 2")
+    elif number_operation == "3":
+        print("\nAvailable balance:")
+        print(balance)
+    elif number_operation == "4":
+        print("\nElegiste 4")
     
-    
+if access == True:
+    while answer == "y" or answer == "yes":
+        print("*****************************\n")
+        print("What operation do you want to do?")
+        print(menu_02)
+        n_operation = input("Please, choose a number from 1 to 5 (1-5): ")
+        if n_operation == "1" or n_operation == "2" or n_operation == "3" or n_operation == "4":
+            options(n_operation)
+            answer = input("\nDo you want to do another operation? (y/n): ")
+            answer = answer.lower()
+        elif n_operation == "5":
+            print("\nCome back soon.\nThank you :)\n")
+            print("\n*****************************\n")
+            answer = "n"
+        else:
+            print("Warning: Incorrect operation number")
+            print("Come back soon.\nThank you :)")
+            print("\n*****************************\n")
+            answer = "n"
+
 else:
     print("Warning: Maximum number of attempts")
     print("Locked system")
     print("Come back soon.\nThank you :)")
+    print("\n*****************************\n")
 
 
 
