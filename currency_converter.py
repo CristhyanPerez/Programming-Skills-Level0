@@ -75,16 +75,16 @@ if initial_money == "1" or initial_money == "2" or initial_money == "3" or initi
             initial_money_exchange = exchange_values[initial_money - 1]
             final_money_exchange = exchange_values[final_money - 1]
             if initial_money == final_money:
-                print(f"{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {balance}")
+                print(f"\n{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {balance}")
             elif initial_money == 3 and final_money != 3:
                 exchange_balance = exchange_dolar_other(balance, final_money_exchange)
-                print(f"{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}") 
+                print(f"\n{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}") 
             elif initial_money != 3 and final_money == 3:
                 exchange_balance = exchange_other_dolar(balance, initial_money_exchange)
-                print(f"{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}")
+                print(f"\n{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}")
             else:
                 exchange_balance = exchange_other_other(balance, initial_money_exchange, final_money_exchange)
-                print(f"{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}")
+                print(f"\n{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}")
         else:
             print("\nSorry. Incorrect number chosen.!!!")
             print("Come back soon. Thanks")
@@ -93,4 +93,32 @@ if initial_money == "1" or initial_money == "2" or initial_money == "3" or initi
         print("Come back soon. Thanks")
 else:
     print("\nSorry. Incorrect number chosen.!!!")
+    print("Come back soon. Thanks")
+
+answer = input("\nDo you want to withdraw the funds?(y/n): ")
+min_amount = 50
+max_amount = 3000
+if answer == "y" or answer == "yes":
+    min_amount = 50
+    max_amount = 3000
+    min_amount = exchange_dolar_other(min_amount, final_money_exchange)
+    min_amount = int(min_amount)
+    max_amount = exchange_dolar_other(max_amount, final_money_exchange)
+    max_amount = int(max_amount)
+    print(f"The minimum amount must be between {currency_symbol_out} {min_amount} and {currency_symbol_out} {max_amount}")
+    if min_amount <= exchange_balance and exchange_balance <= max_amount:
+        commision = 0.01*exchange_balance
+        commision = round(commision, 2)
+        withdrawn_fund = exchange_balance - commision
+        withdrawn_fund = round(withdrawn_fund, 2)
+        print(f"\nCommision: {currency_symbol_out} {commision}")
+        print(f"Withdrawn fund: {currency_symbol_out} {withdrawn_fund}")
+        print("\nCongratulations. Successful operation ..!!")
+    else:
+        print("Insufficient fund. Operation rejected ..!!")
+elif answer == "n" or answer == "no":
+    print("\nSorry. Incorrect invalid answer.!!!")
+    print("Come back soon. Thanks")
+else:
+    print("\nSorry. Incorrect invalid answer.!!!")
     print("Come back soon. Thanks")
