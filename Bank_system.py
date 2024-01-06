@@ -44,21 +44,29 @@ menu_02 = """
 """
 answer = "y"
 add_money = 0
+minus_money = 0
 
-def options(number_operation, balance):
+def options(number_operation, total_money, money_in, money_out):
     if number_operation == "1":
         print("\nHow much are you going to deposit?: ")
-        add_money = input("$ " )
-        add_money = int(add_money)
+        money_in = input("$ ")
+        money_in = int(money_in)
     elif number_operation == "2":
-        print("\nElegiste 2")
+        print("\nHow much are you going to withdraw?: ")
+        money_out = input("$ ")
+        money_out = int(money_out)
     elif number_operation == "3":
         print("\nAvailable balance:")
-        print(balance)
+        print(total_money)
     elif number_operation == "4":
-        print("\nElegiste 4")
-    balance_final = balance + add_money
-    
+        user_transfer = input("\nWho are you going to transfer money to?: ")
+        print("\nHow much are you going to transfer?: ")
+        money_out = input("$ ")
+        money_out = int(money_out)
+        print(f"\nSuccessful operation, {user_transfer} has received a transfer of $ {money_out}")
+    total_money = total_money + money_in - money_out
+    return total_money
+       
 if access == True:
     while answer == "y" or answer == "yes":
         print("*****************************\n")
@@ -66,11 +74,11 @@ if access == True:
         print(menu_02)
         n_operation = input("Please, choose a number from 1 to 5 (1-5): ")
         if n_operation == "1" or n_operation == "2" or n_operation == "3" or n_operation == "4":
-            options(n_operation, balance)
+            balance = options(n_operation, balance, add_money, minus_money)
             answer = input("\nDo you want to do another operation? (y/n): ")
             answer = answer.lower()
         elif n_operation == "5":
-            print("\nCome back soon.\nThank you :)\n")
+            print("Come back soon.\nThank you :)\n")
             print("\n*****************************\n")
             answer = "n"
         else:
@@ -78,6 +86,9 @@ if access == True:
             print("Come back soon.\nThank you :)")
             print("\n*****************************\n")
             answer = "n"
+    if answer == 'n' or 'no':
+        print("\nCome back soon.\nThank you :)")
+        print("\n*****************************\n")
 
 else:
     print("Warning: Maximum number of attempts")
