@@ -96,6 +96,7 @@ while (reset == True):
                 #Evaluate exchange cases
                 if initial_money == final_money:
                     print(f"\n{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {balance}")
+                    exchange_balance = balance
                 elif initial_money == 3 and final_money != 3:
                     exchange_balance = exchange_dolar_other(balance, final_money_exchange)
                     print(f"\n{currency_symbol_in} {balance} is equivalent to {currency_symbol_out} {exchange_balance}") 
