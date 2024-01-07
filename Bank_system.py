@@ -1,3 +1,10 @@
+#Declaration of variables
+access = False      #It is used to evaluate the login
+balance = 2000      #Initial balance
+answer = "y"        #It is used to evaluate the return to the main menu
+add_money = 0
+minus_money = 0
+
 menu_01 = """
 Welcome to the online Banking System:
 
@@ -13,27 +20,6 @@ Password: Cris 4
 
 ********** Log in **********
 """
-print(menu_01)
-
-access = False
-balance = 2000
-
-for i in range (0,3):
-    username = input("What is your username?: ")
-    number_char = len(username)
-    password_system = username + " " +  str(number_char)
-    password_input = input("What is your password?: ")
-    print(f"\nAttempt {i + 1} of 3")
-    
-    if password_input == password_system:
-        print("Correct username and password\n")
-        access = True
-        break
-    else:
-        print("Warning: Incorrect password...")
-        if i < 2:
-            print("Reset username and pasword\n")
-            print("********** Log in **********\n")
 
 menu_02 = """
 1. To Deposit
@@ -42,10 +28,32 @@ menu_02 = """
 4. Transfer money
 5. Exit
 """
-answer = "y"
-add_money = 0
-minus_money = 0
 
+#Outgoing message
+def message_goodbye():
+    print("Come back soon.\nThank you :)")
+    print("\n*****************************\n")
+
+#Function to evalauate the three access attempts
+def login_user():
+    for i in range (0,3):
+        username = input("What is your username?: ")
+        number_char = len(username)
+        password_system = username + " " +  str(number_char)
+        password_input = input("What is your password?: ")
+        print(f"\nAttempt {i + 1} of 3")
+        if password_input == password_system:
+            print("Correct username and password\n")
+            access = True
+            break
+        else:
+            print("Warning: Incorrect password...")
+            if i < 2:
+                print("Reset username and pasword\n")
+                print("********** Log in **********\n")
+    return access
+
+#Function to perform operations with the balance
 def options(number_operation, total_money, money_in, money_out):
     if number_operation == "1":
         print("\nHow much are you going to deposit?: ")
@@ -66,7 +74,10 @@ def options(number_operation, total_money, money_in, money_out):
         print(f"\nSuccessful operation, {user_transfer} has received a transfer of $ {money_out}")
     total_money = total_money + money_in - money_out
     return total_money
-       
+
+print(menu_01)
+access = login_user()
+
 if access == True:
     while answer == "y" or answer == "yes":
         print("*****************************\n")
@@ -78,24 +89,15 @@ if access == True:
             answer = input("\nDo you want to do another operation? (y/n): ")
             answer = answer.lower()
         elif n_operation == "5":
-            print("Come back soon.\nThank you :)\n")
-            print("\n*****************************\n")
+            message_goodbye()
             answer = "n"
         else:
             print("Warning: Incorrect operation number")
-            print("Come back soon.\nThank you :)")
-            print("\n*****************************\n")
+            message_goodbye()
             answer = "n"
-    if answer == 'n' or 'no':
-        print("\nCome back soon.\nThank you :)")
-        print("\n*****************************\n")
-
+    if answer == 'n' or answer == 'no':
+        message_goodbye()
 else:
     print("Warning: Maximum number of attempts")
     print("Locked system")
-    print("Come back soon.\nThank you :)")
-    print("\n*****************************\n")
-
-
-
-
+    message_goodbye()
