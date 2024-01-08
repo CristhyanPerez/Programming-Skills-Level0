@@ -58,6 +58,16 @@ def student_list(name, last_name, program, city):
     student_data[3] = city
     return student_data
 
+#Slots available per program in each city
+def number_slots_available(dataframe, program):
+    df_program_london = dataframe[(dataframe["program"] == program) & (dataframe["city"] == "London")]
+    df_program_manchester = dataframe[(dataframe["program"] == program) & (dataframe["city"] == "Manchester")]
+    df_program_liverpool = dataframe[(dataframe["program"] == program) & (dataframe["city"] == "Liverpool")]
+    slots_available_london = 1 - len(df_program_london)
+    slots_available_manchester = 3 - len(df_program_manchester)
+    slots_available_liverpool = 1 - len(df_program_liverpool)
+    return slots_available_london, slots_available_manchester, slots_available_liverpool
+
 #Function to check if there are places available for the chosen program
 def check_availability(dataframe, program, city):
     dataframe_filtered = dataframe[(dataframe["city"] == city) & (dataframe["program"] == program)]
@@ -75,6 +85,25 @@ def check_availability(dataframe, program, city):
         check = False
     return check 
 
+#print slots availability message
+def print_available_slots(dataframe, program, cities_list):
+    av_london, av_manchester, av_liverpool = number_slots_available(dataframe, program)
+    available_list = [0, 0, 0]
+    available_list[0] = av_london
+    available_list[1] = av_manchester
+    available_list[2] = av_liverpool
+    count = 0
+    if av_london == 0 and av_london == 0 and av_london and 0:
+        print(f"\nThere are no slots available in any city for the {program} program")
+    else :
+        print(f"\nFor the {program} program:")
+        for i in available_list:
+            if i <= 0:
+                continue
+            else:
+                print(f"* {i} slot/s available in {cities_list[count]}")
+            count = count + 1
+        
 #Welcome message
 menu_01 = """
 Welcome to the university enrollment system:
@@ -132,10 +161,20 @@ if access_login == True:
         add_values_csv(path_csv_file, student_to_enroll)
         #Transform the csv file into a pandas dataframe to be able to manipulate it better
         dataframe_enrollment = pd.read_csv("enrollment.csv", names = ["name", "last_name", "program", "city"], sep="\t")
-        #Validate if there are places available
+        #Validate if there are places available in the chosen city
         validate = check_availability(dataframe_enrollment, student_to_enroll[2], student_to_enroll[3])
-        print(validate)
-        #print(group_city.get_group(student_to_enroll[3]))
+        if validate == True:
+            print(f"\nCongratulations {student_to_enroll[0]}\n")
+            print(f"You have enrolled in the program of {student_to_enroll[2]} in the city of {student_to_enroll[3]}")
+        else:
+            print(f"\nWe're sorry {student_to_enroll[0]}\n")
+            print(f"There aren't places available in {student_to_enroll[3]} for the {student_to_enroll[2]} program")
+            #To proceed to delete the last row
+            last_row = dataframe_enrollment.index[-1]
+            dataframe_enrollment = dataframe_enrollment.drop(last_row)
+            
+            #Show were there are places available for that program
+            print_available_slots(dataframe_enrollment, student_to_enroll[2], available_cities)
         print("Todo_gucci")
     else:
         message_goodbye("\nWarning: Wrong option chosen")   
