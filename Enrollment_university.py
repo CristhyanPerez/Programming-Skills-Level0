@@ -1,6 +1,7 @@
 #Import the libraries
 import os
 import csv
+import pandas as pd
 
 #Declaration variables
 available_cities = ["London", "Manchester", "Liverpool"]
@@ -40,7 +41,8 @@ def file_exists():
     if not file_csv_exists:
         with open("enrollment.csv", "w") as file:
             file.write('')
-
+        
+#Function to add values to csv file
 def add_values_csv(path, data_list):
     with open(path, "a", newline = "") as file_csv:
         write_csv = csv.writer(file_csv, delimiter = "\t")
@@ -110,6 +112,10 @@ if access_login == True:
         student_to_enroll = student_list(name, last_name, available_programs[chosen_program - 1], available_cities[chosen_city - 1])
         print(student_to_enroll)
         add_values_csv(path_csv_file, student_to_enroll)
+        #Transform the csv file into a pandas dataframe to be able to manipulate it better
+        dataframe_enrollment = pd.read_csv("enrollment.csv", names = ["name", "last_name", "program", "city"], sep="\t")
+        
+        print(dataframe_enrollment.head())
         print("Todo_gucci")
     else:
         message_goodbye("\nWarning: Wrong option chosen")   
