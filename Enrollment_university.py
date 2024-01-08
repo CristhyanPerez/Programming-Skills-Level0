@@ -7,6 +7,7 @@ import pandas as pd
 available_cities = ["London", "Manchester", "Liverpool"]
 available_programs = ["Computer Science", "Medicine", "Marketing", "Arts"]
 available_options = ["1", "2", "3", "4"]
+slots_cities = [1, 3]
 access_login = False
 
 #Program exit message
@@ -56,6 +57,23 @@ def student_list(name, last_name, program, city):
     student_data[2] = program
     student_data[3] = city
     return student_data
+
+#Function to check if there are places available for the chosen program
+def check_availability(dataframe, program, city):
+    dataframe_filtered = dataframe[(dataframe["city"] == city) & (dataframe["program"] == program)]
+    print(dataframe_filtered)               #Para verificar que columnas está tomando
+    if city == "London" or city == "Liverpool":
+        number_max_program = slots_cities[0] #1 slot available
+    elif city == "Manchester":
+        number_max_program = slots_cities[1] #3 slot available
+    #Count the number of registered
+    number_students = len(dataframe_filtered)
+    #Check if it exceeds the slots
+    if number_students <= number_max_program:
+        check = True    
+    else:
+        check = False
+    return check 
 
 #Welcome message
 menu_01 = """
@@ -114,8 +132,10 @@ if access_login == True:
         add_values_csv(path_csv_file, student_to_enroll)
         #Transform the csv file into a pandas dataframe to be able to manipulate it better
         dataframe_enrollment = pd.read_csv("enrollment.csv", names = ["name", "last_name", "program", "city"], sep="\t")
-        
-        print(dataframe_enrollment.head())
+        #Validate if there are places available
+        validate = check_availability(dataframe_enrollment, student_to_enroll[2], student_to_enroll[3])
+        print(validate)
+        #print(group_city.get_group(student_to_enroll[3]))
         print("Todo_gucci")
     else:
         message_goodbye("\nWarning: Wrong option chosen")   
