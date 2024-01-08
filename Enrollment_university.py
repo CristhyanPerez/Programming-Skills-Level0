@@ -36,10 +36,15 @@ def login_user():
 
 #Funtion to verify the existence of .csv file. If it doesn't exist, it's created
 def file_exists():
-    file_csv_exists = os.path.isfile('enrollment.csv')
+    file_csv_exists = os.path.isfile("enrollment.csv")
     if not file_csv_exists:
-        with open('enrollment.csv', 'w') as file:
+        with open("enrollment.csv", "w") as file:
             file.write('')
+
+def add_values_csv(path, data_list):
+    with open(path, "a", newline = "") as file_csv:
+        write_csv = csv.writer(file_csv, delimiter = "\t")
+        write_csv.writerow(data_list)
 
 #Function to place student data in a list
 def student_list(name, last_name, program, city):
@@ -84,6 +89,7 @@ Availables programs:
 """
 
 file_exists()
+path_csv_file = os.path.join(os.path.dirname(__file__), "enrollment.csv")
 print(menu_01)
 access_login = login_user()
 
@@ -103,6 +109,7 @@ if access_login == True:
         chosen_program = int(chosen_program)
         student_to_enroll = student_list(name, last_name, available_programs[chosen_program - 1], available_cities[chosen_city - 1])
         print(student_to_enroll)
+        add_values_csv(path_csv_file, student_to_enroll)
         print("Todo_gucci")
     else:
         message_goodbye("\nWarning: Wrong option chosen")   
