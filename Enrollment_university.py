@@ -42,7 +42,17 @@ def file_exists():
     if not file_csv_exists:
         with open("enrollment.csv", "w") as file:
             file.write('')
-        
+
+#Function to delete the last row of the csv file
+def delete_row_csv(file_csv):
+    with open(file_csv, "r", newline="") as file:
+        reader = csv.reader(file)
+        data = list(reader)
+    data.pop()
+    with open(file_csv, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerows(data)
+
 #Function to add values to csv file
 def add_values_csv(path, data_list):
     with open(path, "a", newline = "") as file_csv:
@@ -85,7 +95,7 @@ def check_availability(dataframe, program, city):
         check = False
     return check 
 
-#print slots availability message
+#print slots availability message and return available reset
 def print_available_slots(dataframe, program, cities_list):
     av_london, av_manchester, av_liverpool = number_slots_available(dataframe, program)
     available_list = [0, 0, 0]
@@ -95,14 +105,17 @@ def print_available_slots(dataframe, program, cities_list):
     count = 0
     if av_london == 0 and av_london == 0 and av_london and 0:
         print(f"\nThere are no slots available in any city for the {program} program")
+        available_reset = False
     else :
         print(f"\nFor the {program} program:")
         for i in available_list:
             if i <= 0:
                 continue
             else:
-                print(f"* {i} slot/s available in {cities_list[count]}")
+                print(f"* {i} slot/s availables in {cities_list[count]}")
             count = count + 1
+        available_reset = False
+        return available_reset
         
 #Welcome message
 menu_01 = """
@@ -166,15 +179,33 @@ if access_login == True:
         if validate == True:
             print(f"\nCongratulations {student_to_enroll[0]}\n")
             print(f"You have enrolled in the program of {student_to_enroll[2]} in the city of {student_to_enroll[3]}")
-        else:
+        while validate == False:      
             print(f"\nWe're sorry {student_to_enroll[0]}\n")
-            print(f"There aren't places available in {student_to_enroll[3]} for the {student_to_enroll[2]} program")
+            print(f"There aren't slots availables in {student_to_enroll[3]} for the {student_to_enroll[2]} program")
             #To proceed to delete the last row
             last_row = dataframe_enrollment.index[-1]
             dataframe_enrollment = dataframe_enrollment.drop(last_row)
-            
+            #To proceed to delete the last row of the csv file
+            delete_row_csv("enrollment.csv")
             #Show were there are places available for that program
-            print_available_slots(dataframe_enrollment, student_to_enroll[2], available_cities)
+            reset_available = print_available_slots(dataframe_enrollment, student_to_enroll[2], available_cities)
+            print()
+            chosen_city = input("In which of the three cities do you want to enroll?(1-3): ")
+            if chosen_city in available_options[0:3]:
+                chosen_city = int(chosen_city)
+                student_to_enroll = student_list(name, last_name, available_programs[chosen_program - 1], available_cities[chosen_city - 1])
+                validate = check_availability(dataframe_enrollment, student_to_enroll[2], student_to_enroll[3])
+                if validate == True:
+                    print(f"\nCongratulations {student_to_enroll[0]}\n")
+                    print(f"You have enrolled in the program of {student_to_enroll[2]} in the city of {student_to_enroll[3]}")
+                else:
+                    print("\nWarning: Wrong option chosen")
+                    print("Chosen again\n")
+                    validate = False 
+            else:
+                print("\nWarning: Wrong option chosen")
+                print("Chosen again\n")
+                validate = False 
         print("Todo_gucci")
     else:
         message_goodbye("\nWarning: Wrong option chosen")   
