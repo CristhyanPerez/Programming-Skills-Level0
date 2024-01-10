@@ -69,17 +69,62 @@ def category_expense(list_options, list_categories, list_expenses):
                 print("Wrong answer ...!!!")
                 print("I will ask again\n")
                 continue_question = True
-    return list_expenses[0], list_expenses[1], list_expenses[2], list_expenses[3], list_expenses[4]
+    max_expense = max(list_expenses)
+    return list_expenses[0], list_expenses[1], list_expenses[2], list_expenses[3], list_expenses[4], max_expense
 
 #Funtion to print a summary and evaluate the total expense
+def summary_final(income, medical, household, leisure, saving, education):
+    total_expense = medical + household + leisure + saving + education
+    summary = f"""
+        *************************  Summary  ***************************
+        
+        Total income:           $ {income}
+        
+        Expenses by category:
+        * Medical expenses      $ {medical}
+        * Household expenses    $ {household}
+        * Leisure               $ {leisure}
+        * Savings               $ {saving}
+        * Education             $ {education}
 
+        Total expenses:         $ {total_expense}
+        
+        ***************************************************************
+        """
+        print(summary)
 
+#Final messages for the user
+message_01 = """
+Congratulations! 
+You have shown great financial discipline by 
+spending less than you earn. 
 
+Remember what Bill said: 'It is well known that
+the surest way to double your money is to double
+it and put it in your pocket.'
+"""
 
-a, b, c, d, e = category_expense(available_options, categories, expenses_categories)
+message_02 = """
+Oh no! You are spending more money than you earn. Don't worry,
+here I have some tips to improve your financial life.
 
-print(a)
-print(b)
-print(c)
-print(d)
-print(e)
+* Create a monthly budget to control your expenses.
+* Reduce non-essential expenses and look for cheaper alternatives.
+* Increase your income with additional jobs or side projects.
+* Prioritize paying debts, especially those with high interest.
+* Save regularly, even if it's a small amount.
+
+Warren Buffett advices: 'Don't save what you have left after
+spending; spend what you have left after saving.'
+This approach can be a game changer in your financial life.
+"""
+
+message_03 = """
+Warning.! Spending the same as you earn be risky, since it
+does not allow you to save for emergencies.
+
+Remember the words of Sergey Brin: 'It's not enough to have
+a good idea; you have to act on it.' 
+Apply this to your finances:  look for ways to reduce expenses
+or increase income for a more secure future.
+"""
