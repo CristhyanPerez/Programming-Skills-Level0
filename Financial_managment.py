@@ -70,7 +70,8 @@ def category_expense(list_options, list_categories, list_expenses):
                 print("I will ask again\n")
                 continue_question = True
     max_expense = max(list_expenses)
-    return list_expenses[0], list_expenses[1], list_expenses[2], list_expenses[3], list_expenses[4], max_expense
+    index_expense = list_expenses.index(max_expense)
+    return list_expenses[0], list_expenses[1], list_expenses[2], list_expenses[3], list_expenses[4], index_expense
 
 #Funtion to print a summary and evaluate the total expense
 def summary_final(income, medical, household, leisure, saving, education):
@@ -91,7 +92,25 @@ def summary_final(income, medical, household, leisure, saving, education):
         
         ***************************************************************
         """
-        print(summary)
+    print(summary)
+    return total_expense
+
+#Initial menu messages
+menu_01 = """
+****************    Financial managment    ********************
+***************************************************************
+
+Welcome .!!!
+"""
+
+menu_02 ="""
+There are five categories for labeling expenses incurred:
+1- Medical expenses
+2- Household expenses
+3- Leisure
+4- Saving
+5- Education
+"""
 
 #Final messages for the user
 message_01 = """
@@ -105,7 +124,7 @@ it and put it in your pocket.'
 """
 
 message_02 = """
-Oh no! You are spending more money than you earn. Don't worry,
+You are spending more money than you earn. Don't worry,
 here I have some tips to improve your financial life.
 
 * Create a monthly budget to control your expenses.
@@ -128,3 +147,18 @@ a good idea; you have to act on it.'
 Apply this to your finances:  look for ways to reduce expenses
 or increase income for a more secure future.
 """
+
+#Principal structure
+print(menu_01)
+income_total = validate_amount("Record your total income: $ ")
+print()
+medical_exp, household_exp, leisure, saving, education, index = category_expense(available_options, categories, expenses_categories)
+out_expense = summary_final(income_total, medical_exp, household_exp, leisure, saving, education)
+if income_total > out_expense:
+    print(message_01)
+elif income_total < out_expense:
+    print(f"Your biggest expense occurs in the {categories[index]} category.")
+    print(message_02)
+else:
+    print(message_03)
+print("See you later. Come back soon.\n")
