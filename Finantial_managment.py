@@ -1,13 +1,6 @@
 available_options = ["1", "2", "3", "4", "5"]
-
-#Create a dictionary where the key will be category and the value will be the amount spent
-categories = {
-    "Medical expenses"  : 0,
-    "Houshold expenses" : 0,
-    "Leisure"           : 0,
-    "Savings"           : 0,
-    "Education"         : 0
-}
+categories = ["Medical expenses", "Household expenses", "Leisure", "Savings", "Education"]
+expenses_categories = [0, 0, 0, 0, 0]
 
 #Funtion to validate if the amount is positive
 def validate_amount(sentence):
@@ -50,13 +43,43 @@ def validate_category(list_options):
     category = int(category)
     return category
 
-#Function to ask about the expense and the category
-def category_expense(list_options, dictionary_categories):
-    list_key = list(dictionary_categories.keys())
-    amount_in = validate_amount("Enter the expense incurred: $ ")
-    chosen_category = validate_category(list_options)
-    index_category = chosen_category - 1
-    category = list_key[index_category]
-    print(f"\nThe expense entered is {amount_in} and corresponds to the {category} category")
+#Function to ask about the expense and the category. Return the list with update expenses by category
+def category_expense(list_options, list_categories, list_expenses):
+    continue_loop = True
+    #The loop continues until the user decides not to add more expenses
+    while continue_loop == True:
+        amount_in = validate_amount("Enter the expense incurred: $ ")
+        chosen_category = validate_category(list_options)
+        category = list_categories[chosen_category - 1]
+        print(f"\nThe expense entered is {amount_in} and corresponds to the '{category}' category\n")
+        list_expenses[chosen_category - 1] = list_expenses[chosen_category - 1] + amount_in
+        continue_question = True
+        #Evaluate that the answer is only 'y' or 'n'. Id it's another ask again
+        while continue_question == True:
+            answer = input("Do you want to add another expense?(y/n): ")
+            if answer == "y" or answer == "yes":
+                continue_loop = True
+                continue_question = False
+                print()
+            elif answer == "n" or answer == "no":
+                continue_loop = False
+                continue_question = False
+                print("Ok. Great.!\n")
+            else :
+                print("Wrong answer ...!!!")
+                print("I will ask again\n")
+                continue_question = True
+    return list_expenses[0], list_expenses[1], list_expenses[2], list_expenses[3], list_expenses[4]
 
-category_expense(available_options, categories)    
+#Funtion to print a summary and evaluate the total expense
+
+
+
+
+a, b, c, d, e = category_expense(available_options, categories, expenses_categories)
+
+print(a)
+print(b)
+print(c)
+print(d)
+print(e)
