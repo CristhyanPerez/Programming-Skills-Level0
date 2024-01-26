@@ -13,8 +13,8 @@ Notes:
 Username + space + number of characteres in the user word
 
 Example:
-Username: Cris
-Password: Cris 4
+Username: Cristhyan
+Password: Cristhyan 9
 
 *You will only have three attempts.
 
