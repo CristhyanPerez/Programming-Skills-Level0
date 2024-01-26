@@ -2,6 +2,7 @@
 This repository contains a series of entry-level exercises that can be solved in any programming language. The purpose of these exercises is to develop your programming logic. This repository is the first in a series of more exercises to improve your programming skills.
 
 Author: Daniela Maissi
+
 Username: @blindma1den
 
 ##Exercise 01:
@@ -12,7 +13,13 @@ Username: @blindma1den
     - The system must allow users to deposit, withdraw, view, and transfer money.
     - The system must display a menu for users to perform transactions.2.
 
-    https://www.youtube.com/watch?v=hoN44z2am3k
+    [![exercise_01]](https://www.youtube.com/watch?v=hoN44z2am3k)
+
+<video width="640" height="240" controls>
+  <source src="https://www.youtube.com/watch?v=hoN44z2am3k" type="video/mp4">
+  Tu navegador no soporta el elemento de video.
+</video>
+    
 
 ##Exercise 02:
     Create a currency converter between CLP, ARS, USD, EUR, TRY, GBP with the following features:
