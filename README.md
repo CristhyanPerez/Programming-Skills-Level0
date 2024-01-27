@@ -13,7 +13,7 @@ Username: @blindma1den
     - The system must allow users to deposit, withdraw, view, and transfer money.
     - The system must display a menu for users to perform transactions.2.
 
-    [![exercise_01]](https://www.youtube.com/watch?v=hoN44z2am3k)
+[![exercise_01](https://www.youtube.com/watch?v=hoN44z2am3k)]
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PpzX3HBIvuw?si=DOu0CD37N4UwiIuw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
