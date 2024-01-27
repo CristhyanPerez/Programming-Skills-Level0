@@ -15,11 +15,8 @@ Username: @blindma1den
 
     [![exercise_01]](https://www.youtube.com/watch?v=hoN44z2am3k)
 
-<video width="640" height="240" controls>
-  <source src="https://www.youtube.com/watch?v=hoN44z2am3k" type="video/mp4">
-  Tu navegador no soporta el elemento de video.
-</video>
-    
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PpzX3HBIvuw?si=DOu0CD37N4UwiIuw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 
 ##Exercise 02:
     Create a currency converter between CLP, ARS, USD, EUR, TRY, GBP with the following features:
