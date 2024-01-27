@@ -75,7 +75,7 @@ def category_expense(list_options, list_categories, list_expenses):
 
 #Funtion to print a summary and evaluate the total expense
 def summary_final(income, medical, household, leisure, saving, education):
-    total_expense = medical + household + leisure + saving + education
+    total_expense = medical + household + leisure + education
     summary = f"""
         *************************  Summary  ***************************
         
@@ -85,11 +85,10 @@ def summary_final(income, medical, household, leisure, saving, education):
         * Medical expenses      $ {medical}
         * Household expenses    $ {household}
         * Leisure               $ {leisure}
-        * Savings               $ {saving}
         * Education             $ {education}
 
         Total expenses:         $ {total_expense}
-        
+        Savings                 $ {saving}
         ***************************************************************
         """
     print(summary)
@@ -151,7 +150,7 @@ or increase income for a more secure future.
 #Principal structure
 print(menu_01)
 income_total = validate_amount("Record your total income: $ ")
-print()
+print(menu_02)
 medical_exp, household_exp, leisure, saving, education, index = category_expense(available_options, categories, expenses_categories)
 out_expense = summary_final(income_total, medical_exp, household_exp, leisure, saving, education)
 if income_total > out_expense:
